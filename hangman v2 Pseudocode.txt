@@ -1,0 +1,168 @@
+Hangman v2 pseudocode by Rain Zhao
+import random and tkinter
+
+define class Category:
+- create category name
+- create category word list
+- define function to choose random word from category word list
+
+define class Main Application:
+- create gui 600x600 pixels
+
+	define menu function:
+	- create a main frame
+	- create label "Welcome to hangman, made by Rain Zhao"
+	- create main photo
+	- create buttons yes and no
+	- yes clicked, go to category selection
+	- no clicked, exit
+
+	define category selection function:
+	- destroy all gui items in main frame
+	- create category countries with class Category
+	- create category animals with class Category
+	- create category colours with class Category
+	- create category fruits with class Category
+	- create buttons for each category
+	- create return to menu button with return button function
+	- countries clicked, category = countries class
+		- go to loading function
+	- animals clicked, category = animals class
+		- go to loading function
+	- colours clicked, category = colours class
+		- go to loading function
+	- fruits clicked, category = fruits class
+		- go to loading function
+
+	define return button function:
+	- create return to menu button
+	- button clicked, go to menu buffer function
+
+	define menu buffer function:
+	- destroy all gui items in main frame
+	- go to menu function
+
+	define loading function:
+	- destroy all gui items in main frame
+	- get random word from category using the function in class Category
+
+	define hangman function:
+	- destroy all gui items in  main frame
+	- create label "Guess a letter or try and guess the whole word"
+	- create a sub frame called picture frame
+	- create a sub frame called progress frame
+	- create a sub frame called record frame
+	- tries = 6
+	- record = empty list
+	- in progress frame, display number of dashes as length of word
+	- in picture frame, display current status of hangman with picture function
+	- create entry box with entry function
+	- create label "The category is (current category)"
+	- create return to menu button with return button function
+
+	define picture function:
+	- destroy all gui items in picture frame
+	- create the status pictures (empty, five, four, three, two, one, end)
+	- if tries == 6, display status picture empty
+	- else if tries == 5, display status picture five
+	- else if tries == 4, display status picture four
+	- else if tries == 3, display status picture three
+	- else if tries == 2, display status picture two
+	- else if tries == 1, display status picture one
+	- else if tries == 0, display status picture end
+
+	define entry function:
+	- create entry box that takes a string variable
+	- get that string variable and store it in ent for use
+	- player enters their guess, go to check function
+
+	define check function:
+	- if all characters in guess are letters
+		- if guess == word
+			- create label with correct display function
+			- show word with show word function
+			- go to win function
+		- else if guess has more than 1 letter
+			- tries - 1
+			- in picture frame, display current status of hangman with picture function
+			- create label "The guessed word doesn't match"
+			- display tries
+			- if tries == 0
+				- create label with dead display function
+				- - show word with show word function
+			- else
+				- in progress frame, create progress display with progress display function
+				- in record frame, create record display with record display function
+				- go to entry function
+		- else if guess is in record list
+			- create label "You already used this letter"
+			- go to entry function
+		- else if guess is in word
+			- in progress frame, create progress display with progress display function
+			- in record frame, create record display with record display function
+			- go to entry function
+		- else
+			- append guess to record list
+			- tries - 1
+			- in picture frame, display current status of hangman with picture function
+			- create label "The guessed letter is not in the word"
+			- if tries == 0
+				- create label with dead display function
+				- - show word with show word function
+			- else
+				- in progress frame, create progress display with progress display function
+				- in record frame, create record display with record display function
+				- go to entry function
+	- else, create label "use letters only"
+
+	define correct display function:
+	- create label "You've guessed he word!"
+
+	define dead display function:
+	- create label "You ran out of lives"
+
+	define progress display function:
+	- destroy all gui items in progress frame
+	- for each letter in word
+		- if letter is in record list, display letter
+		- else if guess == letter
+			- display letter
+			- append letter to record list
+		- else, display '_'
+	- if displayed word == word
+		- create label with correct display function
+		- go to win function
+
+	define record display function:
+	- destroy all gui items in record frame
+	- display record list
+
+	define show word function:
+	- destroy all gui items in progress frame
+	- for each letter in word, display letter
+	- if tries == 0
+		- create label "The word was (word)"
+		- go to lose function
+
+	define win function:
+	- create win gui instance with class Application End
+
+	define lose function:
+	- create lose gui instance with class Application End
+
+define class Application End:
+- create gui with specified geometry
+- create end photo with specified photo
+- create label "Do you want to play again?"
+- create buttons yes and no
+- yes clicked, go to restart function
+- no clicked, go to end destroy function
+
+	define restart function:
+	- destroy all gui
+	- create root gui instance with class Main Application
+
+	define end destroy function:
+	- destroy all gui
+
+START: create root gui instance with class Main Application
